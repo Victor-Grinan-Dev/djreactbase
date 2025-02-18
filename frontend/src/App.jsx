@@ -7,9 +7,9 @@ function App() {
       <h1>book website</h1>
 
       <form>
-        <input type="number" placeholder='title' />
-        <input type="text" name="asd" placeholder='number' />
-        <button>add book</button>
+        <input type="number" placeholder='Title' />
+        <input type="text" placeholder='Release year' />
+        <button>Add book</button>
       </form>
     </>
   )
