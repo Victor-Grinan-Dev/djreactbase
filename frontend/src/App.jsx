@@ -15,6 +15,7 @@ function App() {
       const response = await fetch('http://127.0.0.1:8000/api/books/');
       const data = await response.json()
       setBooks(data)
+      // console.log(data)
     }catch(error){
       console.log(error)
     }
