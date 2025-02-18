@@ -34,14 +34,11 @@ function App() {
         },
         body:JSON.stringify(bookData)
       }) 
-      const data = await response.data
-      console.log(data)
     } catch (error) {
       console.log(error)
     }finally{
       fetchBooks();
     }
-
   }
 
   return (
@@ -56,7 +53,7 @@ function App() {
       <ol>
         {books && books.map((b,i)=>(
             <li key={i} >
-              <p>"{b.title}", released in {b.release_year}</p>
+              <p>"{b.title}", released in {b.release_year}</p> <input type="text" placeholder='New title'/>
             </li>
         ))}
       </ol>
