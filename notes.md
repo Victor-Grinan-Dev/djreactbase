@@ -115,6 +115,32 @@ type in console:
     py manage.py runserver
 ```
 
+### 1.x CORS errors
+
+```shell
+    pip install django-cors-headers
+```
+
+- Make sure that this settings are added to your setting.py file
+
+```python
+INSTALLED_APPS = [
+    'corsheaders',
+    # other apps...
+]
+
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # Must be before CommonMiddleware
+    'django.middleware.common.CommonMiddleware',
+    # other middleware...
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "https://[yourfrontend].com",
+]
+```
+
 ### 1.2 Creating views
 
 - create a file called views and add inside some views:
