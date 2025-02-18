@@ -33,6 +33,11 @@ def book_detail(request, pk):
         book.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
-    if request.method == 'PUT':
-        return Response(status=status.HTTP_202_ACCEPTED)
+    elif request.method == 'PUT':
+        data = request.data
+        serializer = BookSerializer(book, data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     

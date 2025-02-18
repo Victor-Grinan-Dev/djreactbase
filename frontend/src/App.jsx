@@ -54,7 +54,7 @@ function App() {
       <ol>
         {books && books.map((b,i)=>(
             <li key={i} >
-              <p>"{b.title}", released in {b.release_year}</p> <input type="text" placeholder='New title'/>
+              <p>"{b.title}", released in {b.release_year}  <input type="text" placeholder='New title'/> <input type="number" placeholder='Release year' /> <button>X</button></p>
             </li>
         ))}
       </ol>
