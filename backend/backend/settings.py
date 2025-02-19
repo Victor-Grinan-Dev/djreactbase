@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'corsheaders',
+    'accounts',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api',
     'rest_framework',
+    'djoser',
+    
 ]
 
 CORS_ALLOWED_ORIGINS = [
@@ -64,7 +68,7 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,10 +89,22 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'djreactbase',
+        'USER': 'postgres',
+        'PASSWORD': 'vitismanXD2019',
+        'HOST': 'localhost',
+
     }
 }
+
+EMAIL_BACKEND = 'django.core.email.backends.smtp.Email.Backend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'victorgrinan@gmail.com'
+EMAIL_HOST_PASSWORD = 'vitismanXD2019'
+EMAIL_USE_TLS = True
+
 
 
 # Password validation
@@ -127,7 +143,47 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'build/static')
+]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
+
+SIMPLE_JWT = {
+   'AUTH_HEADER_TYPES': ('JWT',),
+}
+
+#https://djoser.readthedocs.io/en/latest/settings.html#password-reset-confirm-url
+DJOSER = {
+    'LOGIN_FIELD':'email',
+    'USER_CREATE_PASSWORD_RETYPE':True,
+    'USERNAME_CHANGED_EMAIL_CONFIRMATION':True,
+    'PASSWORD_CHANGED_EMAIL_CONFIRMATION':True,
+    'SEND_CONFIRMATION_EMAIL':True,
+    'SET_USERNAME_RETYPE':True, 
+    'SET_PASSWORD_RETYPE':True, 
+    'PASSWORD_RESET_CONFIRM_URL':'password/reset/confirm/{uid}/{token}', 
+    'USERNAME_RESET_CONFIRM_URL':'email/reset/confirm/{uid}/{token}', 
+    'ACTIVATION_URL':'activate/{uid}/{token}', 
+    'SEND_ACTIVATION_EMAIL':True, 
+    'SERIALIZERS':{
+        'user_create':'accounts.serializers.UserCreateSerializer',
+        'user':'accounts.serializers.UserCreateSerializer',
+        'user_delete':'djoser.serializers.UserDeleteSerializer',
+    }
+
+}
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'accounts.UserAccount'
