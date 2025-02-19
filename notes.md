@@ -103,6 +103,17 @@ djangorestframework-simplejwt
 django-filter
 ```
 
+```txt
+django
+djangorestframework
+djangorestframework-simplejwt
+django-filter
+django-cors-headers
+djoser
+psycopg2
+psycopg2-binary
+```
+
 type in console:
 
 ```shell
